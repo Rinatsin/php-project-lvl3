@@ -1,7 +1,8 @@
 
 env:
+  CLIMATE: ${{ secrets.climate_secret }}
   global:
-    - CC_TEST_REPORTER_ID=c13a6039d830738ac5d2c720cb9a5e537ea67ce398cdc2887c71e1200470b912
+    - CC_TEST_REPORTER_ID="$CLIMATE"
 
 language: php
 php:
