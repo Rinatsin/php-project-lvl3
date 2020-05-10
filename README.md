@@ -10,7 +10,7 @@
 </p>
 
 ## Heroku
-- [Heroku doploy](https://boiling-crag-79525.herokuapp.com).
+- [Site](https://boiling-crag-79525.herokuapp.com).
 
 ## About Laravel
 
