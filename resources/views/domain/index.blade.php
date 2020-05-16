@@ -6,7 +6,7 @@
     <tr>
         <td>ID</td>
         <td>Name</td>
-        <td>Last check</td>
+        <td>Last check </td>
     </tr>
     @foreach ($domains as $domain)
     <tr>
