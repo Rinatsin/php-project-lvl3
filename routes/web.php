@@ -16,3 +16,12 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::post('/', 'DomainController@store')
+    ->name('store');
+
+Route::get('/domains', 'DomainController@index')
+    ->name('domains.index');
+
+Route::get('/domains/{id}', 'DomainController@show')
+    ->name('domains.show');
