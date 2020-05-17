@@ -31,9 +31,15 @@ class DomainController extends Controller
             'name' => 'required|unique:domains',
         ]);
 
+        $parsedUrl = parse_url($data['name']);
+        $scheme = isset($parsedUrl['scheme']) ? $parsedUrl['scheme'] . '://' : '';
+        $host = isset($parsedUrl['host']) ? $parsedUrl['host'] : '';
+        $path     = isset($parsedUrl['path']) ? $parsedUrl['path'] : '';
+        $normalized = "{$scheme}{$host}{$path}";
+
         DB::table('domains')->insert(
             [
-                'name' => $data['name'],
+                'name' => $normalized,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ]
