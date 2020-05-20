@@ -18,6 +18,11 @@ jobs:
     - name: PHP Security Checker
       uses: StephaneBour/actions-php-security-checker@1.0
 
+    - name: Create DB and schemas
+      run: |
+        mkdir -p database
+        touch database/laravel.sqlite
+
     - name: Setup project
       run: make setup
 
