@@ -2,7 +2,6 @@
 
 namespace Tests\Feature;
 
-use Illuminate\Support\Facades\DB;
 use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
@@ -24,6 +23,7 @@ class DomainControllerTest extends TestCase
     public function testShow()
     {
         $id = $this->faker->randomDigitNot(0);
+        var_dump($id);
         $responce = $this->get(route('domains.show', ['id' => $id]));
         $responce->assertOk();
     }
