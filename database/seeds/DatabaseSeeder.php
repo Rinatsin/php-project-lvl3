@@ -15,10 +15,57 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         // $this->call(UserSeeder::class);
-        DB::table('domains')->insert([
-            'name' => 'https//:www.' . Str::random(10) . '.com',
-            'created_at' => Carbon::now()->toDateTimeString(),
-            'updated_at' => Carbon::now()->toDateTimeString()
-        ]);
+            DB::table('domains')->insert([
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ],
+                [
+                    'name' => 'https://www.' . Str::random(10) . '.com',
+                    'created_at' => Carbon::now()->toDateTimeString(),
+                    'updated_at' => Carbon::now()->toDateTimeString()
+                ]
+            ]);
     }
 }
