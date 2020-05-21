@@ -7,6 +7,14 @@ use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
 {
+    protected $faker;
+
+    public function setUp(): void
+    {
+        parent::setUp();
+        $this->faker = \Faker\Factory::create();
+    }
+
     public function testIndex()
     {
         $responce = $this->get(route('domains.index'));
@@ -15,20 +23,18 @@ class DomainControllerTest extends TestCase
 
     public function testShow()
     {
-        $faker = \Faker\Factory::create();
-        $id = $faker->randomDigitNot(0);
+        $id = $this->faker->randomDigitNot(0);
         $responce = $this->get(route('domains.show', ['id' => $id]));
         $responce->assertOk();
     }
 
     public function testStore()
     {
-        $faker = \Faker\Factory::create();
-        $data = $faker->url;
-        $response = $this->post(route('store'), [$data]);
+        $data = $this->faker->url;
+        $response = $this->post(route('store'), ['name' => $data]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
 
-        $this->assertDatabaseHas('domains', [$data]);
+        $this->assertDatabaseHas('domains', ['name' => $data]);
     }
 }
