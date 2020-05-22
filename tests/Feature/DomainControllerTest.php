@@ -12,6 +12,7 @@ class DomainControllerTest extends TestCase
     public function setUp(): void
     {
         parent::setUp();
+        $this->seed();
         $this->faker = \Faker\Factory::create();
     }
 
@@ -31,7 +32,7 @@ class DomainControllerTest extends TestCase
 
     public function testStore()
     {
-        $data = $this->faker->url;
+        $data = "https://www.". $this->faker->domainName;
         $response = $this->post(route('store'), ['name' => $data]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
