@@ -32,7 +32,7 @@ class DomainControllerTest extends TestCase
 
     public function testStore()
     {
-        $data = "https://www.". $this->faker->domainName;
+        $data = "https://www." . $this->faker->domainName;
         $response = $this->post(route('store'), ['name' => $data]);
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
