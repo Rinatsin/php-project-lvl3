@@ -1,8 +1,9 @@
 @extends("layouts.app");
 
 @section('content')
+<div class="container text-center">
 <h2>Site: {{  $domain[0]->name }}</h2>
-<table>
+<table class="table table-hover">
     <tr>
         <td>id</td>
         <td>{{  $domain[0]->id }}</td>
@@ -20,4 +21,5 @@
         <td>{{ $domain[0]->updated_at }}</td>
     </tr>
 </table>
+</div>
 @endsection

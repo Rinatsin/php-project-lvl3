@@ -8,190 +8,92 @@
         <meta name="csrf-param" content="_token" />
         <!-- Fonts -->
         <link href="https://fonts.googleapis.com/css?family=Nunito:200,600" rel="stylesheet">
-        <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
-        <!-- Styles -->
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
         <style>
             html, body {
                 background-color: #fff;
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
-                font-weight: 200;
-                height: 100vh;
+                font-weight: 300;
+                line-height: 2.6;
                 margin: 0;
             }
-
-            .full-height {
-                height: 100vh;
+            table {
+                font-size: 14px;
+                border-collapse: collapse;
+                text-align: center;
+            }
+            th, td:first-child {
+                background: #AFCDE7;
+                color: white;
+                padding: 10px 20px;
+            }
+            th, td {
+                border-style: solid;
+                border-width: 0 1px 1px 0;
+                border-color: white;
+                padding: 10px 10px !important;
+            }
+            td {
+                background: #D8E6F3;
+            }
+            th:first-child, td:first-child {
+                text-align: left;
+            }
+            .jumbotron {
+                background-color: darkolivegreen;
+                color: #ffffff;
             }
 
-            .flex-center {
-                align-items: center;
-                display: flex;
-                justify-content: center;
-            }
-
-            .position-ref {
-                position: relative;
-            }
-
-            .top-right {
-                position: absolute;
-                right: 10px;
-                top: 18px;
-            }
-
-            .nav-item {
-                font-size: 22px;
-            }
-
-            .text-uppercase {
-                text-transform: uppercase;
-            }
-
-            .navbar-nav {
-                display: flex;
-                flex-direction: column;
-                padding-left: 0;
+            .navbar {
                 margin-bottom: 0;
-                list-style: none;
+                background-color: darkolivegreen;
+                z-index: 9999;
+                border: 0;
+                font-size: 16px !important;
+                line-height: 1.42857143 !important;
+                letter-spacing: 2px;
+                border-radius: 0;
+            }
+            .navbar li a, .navbar .navbar-brand {
+                color: #fff !important;
             }
 
-            .form-control {
-                display: block;
-                width: 100%;
-                height: calc(1.6em + .75rem + 2px);
-                padding: .375rem .75rem;
-                font-size: .9rem;
-                font-weight: 400;
-                line-height: 1.6;
-                color: #636b6f;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #ced4da;
-                border-radius: .25rem;
-                transition: border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            }
-
-            .form-control-lg {
-                height: calc(1.5em + 1rem + 2px);
-                padding: .5rem 1rem;
-                font-size: 2.125rem;
-                line-height: 1.5;
-                border-radius: .3rem;
-            }
-
-            .text-uppercase {
-                text-transform: uppercase!important;
-            }
-
-            .pl-5, .px-5 {
-                padding-left: 3rem!important;
-            }
-
-            .pr-5, .px-5 {
-                padding-right: 3rem!important;
-            }
-
-            .ml-3, .mx-3 {
-                margin-left: 1rem!important;
-            }
-
-            .btn-group-lg>.btn, .btn-lg {
-                padding: .5rem 1rem;
-                font-size: 2.125rem;
-                line-height: 2.5;
-                border-radius: .3rem;
-            }
-
-            .btn-primary {
-                color: #fff;
-                background-color: #3490dc;
-                border-color: #3490dc;
-            }
-
-            .btn {
-                display: inline-block;
-                font-weight: 400;
-                color: #212529;
-                text-align: center;
-                vertical-align: middle;
-                cursor: pointer;
-                -webkit-user-select: none;
-                -moz-user-select: none;
-                -ms-user-select: none;
-                user-select: none;
-                background-color: transparent;
-                border: 1px solid transparent;
-                padding: .375rem .75rem;
-                font-size: .9rem;
-                line-height: 1.6;
-                border-radius: .25rem;
-                transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
-            }
-
-            .btn-lg {
-                color: #fff;
-                background-color: #3490dc;
-                border-color: #3490dc;
-                padding: .5rem 1rem;
-                font-size: 1.125rem;
-                line-height: 1.5;
-                border-radius: .3rem;
-            }
-
-            .content {
-                text-align: center;
-            }
-
-            .title {
-                font-size: 70px;
-            }
-
-            .links {
-                color: #636b6f;
-                padding: 0 25px;
-                font-size: 13px;
-                font-weight: 600;
-                letter-spacing: .1rem;
-                text-decoration: none;
-                text-transform: uppercase;
-            }
-
-            .m-b-md {
+            footer .glyphicon {
+                font-size: 20px;
                 margin-bottom: 20px;
+                color: #f4511e;
             }
         </style>
     </head>
     <body>
-        <div>
-            <ul class="navbar-nav">
-                <li class="nav-item">
-                    <a class="nav-link active" href="{{  url('/') }}">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link " href="{{ route('domains.index') }}">Domains</a>
-                </li>
-            </ul>
-        </div>
-        @include('flash::message')
-        <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
+        <header>
+        <nav class="navbar navbar-default navbar-fixed-top">
+            <div class="container">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="{{  url('/') }}">Page Analyzer</a>
                 </div>
-            @endif
-            <div>
-            @yield('content');
+                <div>
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{  url('/') }}">Home</a></li>
+                        <li><a href="{{ route('domains.index') }}">Domains</a></li>
+                    </ul>
+                </div>
             </div>
-
+        </nav>
+        </header>
+        @include('flash::message')
+        <div>
+            @yield('content');
         </div>
+        <footer class="border-top py-3 mt-5">
+           <div class="container-lg">
+               <div class="text-center">
+                    <p>Site Made By <a href="https://boiling-crag-79525.herokuapp.com/" title="Rinat Salimyanov">Rinat Salimyanov</a></p>
+               </div>
+           </div>
+        </footer>
     </body>
 </html>

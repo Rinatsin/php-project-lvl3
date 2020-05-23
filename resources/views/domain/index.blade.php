@@ -1,8 +1,9 @@
 @extends("layouts.app");
 
 @section('content')
+<div class="container text-center">
 <h2>Domains</h2>
-<table>
+<table class="table table-hover">
     <tr>
         <td>ID</td>
         <td>Name</td>
@@ -16,4 +17,6 @@
     </tr>
     @endforeach
 </table>
+<div>{{ $domains->links() }}</div>
+</div>
 @endsection
