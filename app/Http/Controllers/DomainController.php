@@ -53,7 +53,7 @@ class DomainController extends Controller
             $id = $domain[0]->id;
             flash('This url already exists')->error();
             return redirect()
-                    ->route('domains.show', ['id' =>$id])
+                    ->route('domains.show', ['id' => $id])
                     ->withErrors($uniqueValidator)
                     ->withInput();
         }
@@ -73,7 +73,7 @@ class DomainController extends Controller
 
         flash('Url has been added')->success();
         return redirect()
-                    ->route('domains.show', ['id' =>$id]);
+                    ->route('domains.show', ['id' => $id]);
     }
 
     public function normalizeUrl($url)
@@ -106,6 +106,6 @@ class DomainController extends Controller
         }
 
         return redirect()
-            ->route('domains.show', ['id' =>$id]);
+            ->route('domains.show', ['id' => $id]);
     }
 }
