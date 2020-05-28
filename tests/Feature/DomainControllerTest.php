@@ -25,9 +25,10 @@ class DomainControllerTest extends TestCase
     public function testShow()
     {
         $id = $this->faker->randomDigitNot(0);
-        $this->assertDatabaseHas('domains', ['id' => $id]);
         $responce = $this->get(route('domains.show', ['id' => $id]));
         $responce->assertOk();
+
+        $this->assertDatabaseHas('domains', ['id' => $id]);
     }
 
     public function testStore()
@@ -38,5 +39,15 @@ class DomainControllerTest extends TestCase
         $response->assertRedirect();
 
         $this->assertDatabaseHas('domains', ['name' => $data]);
+    }
+
+    public function testCreateCheck()
+    {
+        $id = $this->faker->randomDigitNot(0);
+        $responce = $this->post(route('domains.create_check', ['id' => $id]));
+        $responce->assertSessionHasNoErrors();
+        $responce->assertRedirect();
+
+        $this->assertDatabaseHas('domain_checks', ['domain_id' => $id]);
     }
 }

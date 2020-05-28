@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\DomainController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -25,3 +26,6 @@ Route::get('/domains', 'DomainController@index')
 
 Route::get('/domains/{id}', 'DomainController@show')
     ->name('domains.show');
+
+Route::post('/domains/{id}/checks', 'DomainController@createCheck')
+    ->name('domains.create_check');

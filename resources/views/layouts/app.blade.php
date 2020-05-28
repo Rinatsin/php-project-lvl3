@@ -17,7 +17,7 @@
                 color: #636b6f;
                 font-family: 'Nunito', sans-serif;
                 font-weight: 300;
-                line-height: 2.6;
+                line-height: 3.6;
                 margin: 0;
             }
             table {
