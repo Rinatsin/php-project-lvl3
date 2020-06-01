@@ -108,7 +108,6 @@ class DomainController extends Controller
                 flash($e->getMessage())->error();
                 return redirect()
                     ->route('domains.show', ['id' => $id]);
-
             }
         }
         flash('Site has been cheked')->success();

@@ -54,6 +54,5 @@ class DomainControllerTest extends TestCase
         Http::assertSent(function ($request) {
             return $request->url() == 'http://test.com';
         });
-
     }
 }
