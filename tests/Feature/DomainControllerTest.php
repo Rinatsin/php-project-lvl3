@@ -3,6 +3,7 @@
 namespace Tests\Feature;
 
 use Illuminate\Foundation\Testing\RefreshDatabase;
+use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
@@ -43,11 +44,16 @@ class DomainControllerTest extends TestCase
 
     public function testCreateCheck()
     {
+        Http::fake();
         $id = $this->faker->randomDigitNot(0);
         $responce = $this->post(route('domains.create_check', ['id' => $id]));
         $responce->assertSessionHasNoErrors();
-        $responce->assertRedirect();
+        //$responce->assertRedirect();
+        //$this->assertDatabaseHas('domain_checks', ['domain_id' => $id]);
+        Http::post('http://test.com');
+        Http::assertSent(function ($request) {
+            return $request->url() == 'http://test.com';
+        });
 
-        $this->assertDatabaseHas('domain_checks', ['domain_id' => $id]);
     }
 }

@@ -7,13 +7,15 @@
     <tr>
         <td>ID</td>
         <td>Name</td>
-        <td>Last check </td>
+        <td>Last check</td>
+        <td>Status code</td>
     </tr>
     @foreach ($domains as $domain)
     <tr>
         <td>{{$domain->id}}</td>
         <td><a href="{{ route('domains.show', ['id' => $domain->id]) }}">{{ $domain->name }}</a></td>
         <td>{{$domain->updated_at}}</td>
+        <td>{{$domain->status_code}}</td>
     </tr>
     @endforeach
 </table>

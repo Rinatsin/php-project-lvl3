@@ -5,18 +5,20 @@ namespace App\Http\Controllers;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Http;
 use Illuminate\Support\Facades\Validator;
+use Throwable;
 
 class DomainController extends Controller
 {
     public function index()
     {
         $domains = DB::table('domains')
-                        ->distinct('domains.id')
-                        ->select('domains.id', 'domains.name', DB::raw('MAX(domain_checks.updated_at) as updated_at'))
-                        ->leftJoin('domain_checks', 'domains.id', '=', 'domain_checks.domain_id')
-                        ->groupBy('domains.id')
-                        ->paginate(10);
+                    ->distinct('domains.id')
+                    ->select('domains.id', 'domains.name', 'domain_checks.status_code', DB::raw('MAX(domain_checks.updated_at) as updated_at'))
+                    ->leftJoin('domain_checks', 'domains.id', '=', 'domain_checks.domain_id')
+                    ->groupBy('domains.id', 'domain_checks.status_code')
+                    ->paginate(10);
 
         return view('domain.index', compact('domains'));
     }
@@ -92,19 +94,24 @@ class DomainController extends Controller
                         ->get();
 
         if ($domain !== null) {
-            DB::table('domain_checks')->insert(
-                [
-                    'domain_id' => $id,
-                    'status_code' => 200,
-                    'h1' => 'blablabla',
-                    'keywords' => 'check la la',
-                    'description' => 'test',
-                    'created_at' => Carbon::now()->toDateTimeString(),
-                    'updated_at' => Carbon::now()->toDateTimeString()
-                ]
-            );
-        }
+            try {
+                $status = Http::get($domain[0]->name)->status();
+                DB::table('domain_checks')->insert(
+                    [
+                        'domain_id' => $id,
+                        'status_code' => $status,
+                        'created_at' => Carbon::now()->toDateTimeString(),
+                        'updated_at' => Carbon::now()->toDateTimeString()
+                    ]
+                );
+            } catch (Throwable $e) {
+                flash($e->getMessage())->error();
+                return redirect()
+                    ->route('domains.show', ['id' => $id]);
 
+            }
+        }
+        flash('Site has been cheked')->success();
         return redirect()
             ->route('domains.show', ['id' => $id]);
     }

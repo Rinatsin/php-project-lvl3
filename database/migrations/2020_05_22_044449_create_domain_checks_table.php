@@ -17,10 +17,10 @@ class CreateDomainChecksTable extends Migration
             $table->id();
             $table->bigInteger('domain_id');
             $table->foreign('domain_id')->references('id')->on('domains');
-            $table->integer('status_code');
-            $table->string('h1');
-            $table->string('keywords');
-            $table->text('description');
+            $table->integer('status_code')->nullable();
+            $table->string('h1')->nullable();
+            $table->string('keywords')->nullable();
+            $table->text('description')->nullable();
             $table->timestamps();
         });
     }
