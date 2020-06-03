@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use DiDom\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
@@ -87,19 +88,27 @@ class DomainController extends Controller
         return "{$scheme}{$host}{$path}";
     }
 
-    public function createCheck(Request $request, $id)
+    public function createCheck($id)
     {
         $domain = DB::table('domains')
                         ->where('id', '=', $id)
                         ->get();
-
         if ($domain !== null) {
             try {
+                $document = new Document($domain[0]->name, true);
+                $h1 = $document->has('h1') ? $document->first('h1')->text() : null;
+                $keywordsElement = $document->first('meta[name=keywords]');
+                $descriptionElement = $document->first('meta[name=description]');
+                $keywords = $keywordsElement ? $keywordsElement->getAttribute('content') : null;
+                $description = $descriptionElement ? $descriptionElement->getAttribute('content') : null;
                 $status = Http::get($domain[0]->name)->status();
                 DB::table('domain_checks')->insert(
                     [
                         'domain_id' => $id,
                         'status_code' => $status,
+                        'h1' => $h1,
+                        'keywords' => $keywords,
+                        'description' => $description,
                         'created_at' => Carbon::now()->toDateTimeString(),
                         'updated_at' => Carbon::now()->toDateTimeString()
                     ]

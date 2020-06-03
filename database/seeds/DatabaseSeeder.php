@@ -41,31 +41,6 @@ class DatabaseSeeder extends Seeder
                 'name' => "https://www.". $faker->domainName,
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
-            ],
-            [
-                'name' => "https://www.". $faker->domainName,
-                'created_at' => Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon::now()->toDateTimeString()
-            ],
-            [
-                'name' => "https://www.". $faker->domainName,
-                'created_at' => Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon::now()->toDateTimeString()
-            ],
-            [
-                'name' => "https://www.". $faker->domainName,
-                'created_at' => Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon::now()->toDateTimeString()
-            ],
-            [
-                'name' => "https://www.". $faker->domainName,
-                'created_at' => Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon::now()->toDateTimeString()
-            ],
-            [
-                'name' => "https://www.". $faker->domainName,
-                'created_at' => Carbon::now()->toDateTimeString(),
-                'updated_at' => Carbon::now()->toDateTimeString()
             ]
         ]);
     }

@@ -29,12 +29,18 @@
     <tr>
         <td>check id</td>
         <td>status code</td>
+        <td>h1</td>
+        <td>keywords</td>
+        <td>description</td>
         <td>check date</td>
     </tr>
 @foreach ($domain_checks as $check)
     <tr>
         <td>{{  $check->id }}</td>
         <td>{{  $check->status_code }}</td>
+        <td>{{  $check->h1 }}</td>
+        <td>{{  $check->keywords }}</td>
+        <td>{{  $check->description }}</td>
         <td>{{  $check->created_at }}</td>
     </tr>
 @endforeach
