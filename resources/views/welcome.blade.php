@@ -4,7 +4,7 @@
     <div class="jumbotron text-center">
       <h1>Page Analyzer</h1>
       <p>Check web pages for free</p>
-      {{ Form::open(['route' => 'store', 'class' => 'form-inline']) }}
+      {{ Form::open(['route' => 'domains.store', 'class' => 'form-inline']) }}
       <div class="input-group">
         {{ Form::text('name', null, ['class' => 'form-control', 'type' => 'text', 'size' => '60', 'placeholder' => 'https://www.example.com']) }}
         <div class="input-group-btn">

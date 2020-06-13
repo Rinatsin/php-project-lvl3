@@ -2,23 +2,23 @@
 
 @section('content')
 <div class="container text-left">
-<h2>Site: {{  $domain[0]->name }}</h2>
+<h2>Site: {{  $domain->name }}</h2>
 <table class="table table-hover">
     <tr>
         <td>id</td>
-        <td>{{  $domain[0]->id }}</td>
+        <td>{{  $domain->id }}</td>
     </tr>
     <tr>
         <td>name</td>
-        <td>{{ $domain[0]->name }}</td>
+        <td>{{ $domain->name }}</td>
     </tr>
     <tr>
         <td>created_at</td>
-        <td>{{ $domain[0]->created_at }}</td>
+        <td>{{ $domain->created_at }}</td>
     </tr>
     <tr>
         <td>updated_at</td>
-        <td>{{ $domain[0]->updated_at }}</td>
+        <td>{{ $domain->updated_at }}</td>
     </tr>
 </table>
 </div>
