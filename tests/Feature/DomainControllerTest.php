@@ -2,18 +2,14 @@
 
 namespace Tests\Feature;
 
-use GuzzleHttp\Client;
-use GuzzleHttp\Handler\MockHandler;
-use GuzzleHttp\HandlerStack;
-use GuzzleHttp\Psr7\Response;
 use Illuminate\Foundation\Testing\RefreshDatabase;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
 use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
 {
     use RefreshDatabase;
+
     protected $faker;
 
     public function setUp(): void
