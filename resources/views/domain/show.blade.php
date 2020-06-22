@@ -24,7 +24,7 @@
 </div>
 <div class="container text-left">
 <h2>Checks</h2>
-@include('domain.check')
+@include('check.create')
 <table class="table">
     <tr>
         <td>check id</td>

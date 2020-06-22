@@ -8,7 +8,7 @@ use Tests\TestCase;
 
 class DomainControllerTest extends TestCase
 {
-    use RefreshDatabase;
+    //use RefreshDatabase;
 
     protected $faker;
 
@@ -16,6 +16,7 @@ class DomainControllerTest extends TestCase
     {
         parent::setUp();
         $this->faker = \Faker\Factory::create();
+        $this->seed();
     }
 
     public function testIndex()
@@ -26,7 +27,6 @@ class DomainControllerTest extends TestCase
 
     public function testShow()
     {
-        $this->seed();
         $id = $this->faker->randomDigitNot(0);
         $responce = $this->get(route('domains.show', ['id' => $id]));
         $responce->assertOk();
@@ -44,22 +44,5 @@ class DomainControllerTest extends TestCase
         $urlNormalizer = new \URL\Normalizer($data);
         $normalizedData = $urlNormalizer->normalize();
         $this->assertDatabaseHas('domains', ['name' => $normalizedData]);
-    }
-
-    public function testCreateCheck()
-    {
-        Http::fake();
-
-        $id = $this->faker->randomDigitNot(0);
-        Http::withHeaders(
-            ['name' => "description", 'content' => 'test description'],
-            ['name' => "keywords", 'content' => 'test keywords']
-        )->post(route('domains.create_check', ['id' => $id]));
-
-        Http::assertSent(function ($request) use ($id) {
-            return $request->hasHeader('name', 'description') &&
-                    $request->url() == route('domains.create_check', ['id' => $id]);
-        });
-        //$this->assertDatabaseHas('domain_checks', ['keywords' => 'test keywords']);
     }
 }

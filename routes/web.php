@@ -27,5 +27,5 @@ Route::post('/domains', 'DomainController@store')
 Route::get('/domains/{id}', 'DomainController@show')
     ->name('domains.show');
 
-Route::post('/domains/{id}/checks', 'DomainController@createCheck')
-    ->name('domains.create_check');
+Route::post('/domains/{id}/checks', 'CheckController@store')
+    ->name('checks.store');
