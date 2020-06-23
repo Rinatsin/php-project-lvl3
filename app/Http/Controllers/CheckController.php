@@ -16,14 +16,16 @@ class CheckController extends Controller
         $domain = DB::table('domains')->find($id);
 
         try {
-            $document = new Document($domain->name, true);
+            $data = Http::get($domain->name);
+            $body = $data->body();
+            $status = $data->status();
+
+            $document = new Document($body);
             $h1 = $document->has('h1') ? $document->first('h1')->text() : null;
             $keywordsElement = $document->first('meta[name=keywords]');
             $descriptionElement = $document->first('meta[name=description]');
             $keywords = $keywordsElement ? $keywordsElement->getAttribute('content') : null;
             $description = $descriptionElement ? $descriptionElement->getAttribute('content') : null;
-            $status = Http::get($domain->name)->status();
-            dump($id);
             DB::table('domain_checks')->insert(
                 [
                     'domain_id' => $id,

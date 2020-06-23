@@ -39,6 +39,6 @@ class CheckControllerTest extends TestCase
         $response = $this->post(route('checks.store', ['id' => $id]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
-        $this->assertDatabaseHas('domain_checks', ['status_code' => 203]);
+        $this->assertDatabaseHas('domain_checks', ['description' => 'test description']);
     }
 }
