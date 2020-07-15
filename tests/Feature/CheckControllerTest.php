@@ -23,19 +23,10 @@ class CheckControllerTest extends TestCase
     {
         $data = file_get_contents(__DIR__ . "/fixtures/test.html");
         $name = "https://www.google.ru/";
-
         Http::fake([
             $name => Http::response($data, 203)
         ]);
-        $this->post(route('domains.store'), ['name' => $name]);
-
-        $urlNormalizer = new \URL\Normalizer($name);
-        $normalizedData = $urlNormalizer->normalize();
-        $domain = DB::table('domains')
-                    ->where('name', $normalizedData)
-                    ->first();
-
-        $id = $domain->id;
+        $id = 1;
         $response = $this->post(route('checks.store', ['id' => $id]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();

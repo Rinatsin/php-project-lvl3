@@ -17,7 +17,7 @@ class DatabaseSeeder extends Seeder
         $faker = \Faker\Factory::create();
         DB::table('domains')->insert([
             [
-                'name' => "https://www.". $faker->domainName,
+                'name' => "https://www.google.ru/",
                 'created_at' => Carbon::now()->toDateTimeString(),
                 'updated_at' => Carbon::now()->toDateTimeString()
             ],

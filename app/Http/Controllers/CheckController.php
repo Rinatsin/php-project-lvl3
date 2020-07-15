@@ -7,6 +7,7 @@ use DiDom\Document;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Http;
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
 class CheckController extends Controller
@@ -24,8 +25,8 @@ class CheckController extends Controller
             $h1 = $document->has('h1') ? $document->first('h1')->text() : null;
             $keywordsElement = $document->first('meta[name=keywords]');
             $descriptionElement = $document->first('meta[name=description]');
-            $keywords = $keywordsElement ? $keywordsElement->getAttribute('content') : null;
-            $description = $descriptionElement ? $descriptionElement->getAttribute('content') : null;
+            $keywords = optional($keywordsElement)->getAttribute('content');
+            $description = optional($descriptionElement)->getAttribute('content');
             DB::table('domain_checks')->insert(
                 [
                     'domain_id' => $id,
@@ -38,7 +39,11 @@ class CheckController extends Controller
                 ]
             );
         } catch (Throwable $e) {
-            flash($e->getMessage())->error();
+            if ($e instanceof HttpException) {
+                flash($e->getMessage())->error();
+            } else {
+                flash("Домен {$domain->name} не существует")->error();
+            }
             return redirect()
                 ->route('domains.show', ['id' => $id]);
         }
