@@ -15,13 +15,20 @@ class DomainController extends Controller
 {
     public function index()
     {
+        $lastCheck = DB::table('domain_checks')
+                    ->select('updated_at')
+                    ->whereColumn('domain_id', 'domains.id')
+                    ->latest()
+                    ->limit(1);
+        $statusCode = DB::table('domain_checks')
+                    ->select('status_code')
+                    ->whereColumn('domain_id', 'domains.id')
+                    ->latest()
+                    ->limit(1);
         $domains = DB::table('domains')
                     ->select('id', 'name')
-                    ->paginate();
-        $checks = DB::table('domain_checks')
-                    ->distinct('domain_id')
-                    ->select('domain_id', 'status_code', DB::raw('MAX(updated_at)'))
-                    ->groupBy('domain_id', 'status_code')
+                    ->selectSub($lastCheck, 'last_check')
+                    ->selectSub($statusCode, 'status_code')
                     ->paginate();
     //    $domains = DB::table('domains')
     //                ->distinct('domains.id')
@@ -29,7 +36,7 @@ class DomainController extends Controller
     //                ->leftJoin('domain_checks', 'domains.id', '=', 'domain_checks.domain_id')
     //                ->groupBy('domains.id', 'domain_checks.status_code')
     //                ->paginate(10);
-        return view('domain.index', compact('domains', 'checks'));
+        return view('domain.index', compact('domains'));
     }
 
     public function show($id)

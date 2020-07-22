@@ -15,9 +15,12 @@ class CheckController extends Controller
     public function store($id)
     {
         $domain = DB::table('domains')->find($id);
-
         try {
-            $data = Http::get($domain->name);
+            try {
+                $data = Http::get($domain->name);
+            } catch (HttpException $err) {
+                flash($err->getMessage())->error();
+            }
             $body = $data->body();
             $status = $data->status();
 
@@ -39,11 +42,12 @@ class CheckController extends Controller
                 ]
             );
         } catch (Throwable $e) {
-            if ($e instanceof HttpException) {
-                flash($e->getMessage())->error();
-            } else {
-                flash("Домен {$domain->name} не существует")->error();
-            }
+            abort(404);
+        //    if ($e instanceof HttpException) {
+        //        flash($e->getMessage())->error();
+        //    } else {
+        //        flash("Домен {$domain->name} не существует")->error();
+        //    }
             return redirect()
                 ->route('domains.show', ['id' => $id]);
         }

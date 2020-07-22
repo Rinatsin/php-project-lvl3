@@ -28,4 +28,4 @@ Route::get('/domains/{id}', 'DomainController@show')
     ->name('domains.show');
 
 Route::post('/domains/{id}/checks', 'CheckController@store')
-    ->name('checks.store');
+    ->name('domains.checks.store');

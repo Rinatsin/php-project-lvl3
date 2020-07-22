@@ -26,8 +26,7 @@ class CheckControllerTest extends TestCase
         Http::fake([
             $name => Http::response($data, 203)
         ]);
-        $id = 1;
-        $response = $this->post(route('checks.store', ['id' => $id]));
+        $response = $this->post(route('domains.checks.store', ['id' => 1]));
         $response->assertSessionHasNoErrors();
         $response->assertRedirect();
         $this->assertDatabaseHas('domain_checks', ['description' => 'test description']);
