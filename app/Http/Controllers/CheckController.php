@@ -16,14 +16,9 @@ class CheckController extends Controller
     {
         $domain = DB::table('domains')->find($id);
         try {
-            try {
-                $data = Http::get($domain->name);
-            } catch (HttpException $err) {
-                flash($err->getMessage())->error();
-            }
+            $data = Http::get($domain->name);
             $body = $data->body();
             $status = $data->status();
-
             $document = new Document($body);
             $h1 = $document->has('h1') ? $document->first('h1')->text() : null;
             $keywordsElement = $document->first('meta[name=keywords]');
@@ -41,13 +36,10 @@ class CheckController extends Controller
                     'updated_at' => Carbon::now()->toDateTimeString()
                 ]
             );
+        } catch (HttpException $err) {
+            flash($err->getMessage())->error();
         } catch (Throwable $e) {
             abort(404);
-        //    if ($e instanceof HttpException) {
-        //        flash($e->getMessage())->error();
-        //    } else {
-        //        flash("Домен {$domain->name} не существует")->error();
-        //    }
             return redirect()
                 ->route('domains.show', ['id' => $id]);
         }
