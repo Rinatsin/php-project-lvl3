@@ -10,7 +10,7 @@ use Illuminate\Support\Facades\Http;
 use Symfony\Component\HttpKernel\Exception\HttpException;
 use Throwable;
 
-class CheckController extends Controller
+class DomainCheckController extends Controller
 {
     public function store($id)
     {
@@ -40,8 +40,6 @@ class CheckController extends Controller
             flash($err->getMessage())->error();
         } catch (Throwable $e) {
             abort(404);
-            return redirect()
-                ->route('domains.show', ['id' => $id]);
         }
         flash('Site has been cheked')->success();
         return redirect()
