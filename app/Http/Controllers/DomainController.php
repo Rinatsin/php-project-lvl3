@@ -26,22 +26,22 @@ class DomainController extends Controller
                     ->groupBy('domain_id', 'status_code')
                     ->get();
         $domains = $doms->map(function ($item) use ($lastChecks) {
-                $lastCheck = $lastChecks->firstWhere('domain_id', $item->id);
-                    if ($lastCheck !== null) {
-                        return (object) [
-                            'id' => $item->id,
-                            'name' => $item->name,
-                            'status_code' => $lastCheck->status_code,
-                            'last_check' => $lastCheck->last_check
-                        ];
-                    } else {
-                        return (object) [
-                            'id' => $item->id,
-                            'name' => $item->name,
-                            'status_code' => null,
-                            'last_check' => null
-                        ];
-                    }
+            $lastCheck = $lastChecks->firstWhere('domain_id', $item->id);
+            if ($lastCheck !== null) {
+                return (object) [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'status_code' => $lastCheck->status_code,
+                    'last_check' => $lastCheck->last_check
+                ];
+            } else {
+                return (object) [
+                    'id' => $item->id,
+                    'name' => $item->name,
+                    'status_code' => null,
+                    'last_check' => null
+                ];
+            }
         });
         $domains = $this->paginate($domains);
     //    dump($domains);
