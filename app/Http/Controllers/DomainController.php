@@ -18,63 +18,15 @@ class DomainController extends Controller
 {
     public function index()
     {
-        $doms = DB::table('domains')
+        $domains = DB::table('domains')
                     ->select('id', 'name')
-                    ->get();
+                    ->paginate();
         $lastChecks = DB::table('domain_checks')
                     ->select('domain_id', 'status_code', DB::raw('MAX(domain_checks.updated_at) as last_check'))
                     ->groupBy('domain_id', 'status_code')
                     ->get();
-        $domains = $doms->map(function ($item) use ($lastChecks) {
-            $lastCheck = $lastChecks->firstWhere('domain_id', $item->id);
-            if ($lastCheck !== null) {
-                return (object) [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'status_code' => $lastCheck->status_code,
-                    'last_check' => $lastCheck->last_check
-                ];
-            } else {
-                return (object) [
-                    'id' => $item->id,
-                    'name' => $item->name,
-                    'status_code' => null,
-                    'last_check' => null
-                ];
-            }
-        });
-        $domains = $this->paginate($domains);
-    //    dump($domains);
-    //    $lastCheck = DB::table('domain_checks')
-    //                ->select('updated_at')
-    //                ->whereColumn('domain_id', 'domains.id')
-    //                ->latest()
-    //                ->limit(1);
-    //    $statusCode = DB::table('domain_checks')
-    //                ->select('status_code')
-    //                ->whereColumn('domain_id', 'domains.id')
-    //                ->latest()
-    //                ->limit(1);
-    //    $domains = DB::table('domains')
-    //                ->select('id', 'name')
-    //                ->selectSub($lastCheck, 'last_check')
-    //                ->selectSub($statusCode, 'status_code')
-    //                ->paginate();
-    //                dump($domains);
-    //    $domains = DB::table('domains')
-    //                ->distinct('domains.id')
-    //                ->select('domains.id', 'domains.name', 'domain_checks.status_code', DB::raw('MAX(domain_checks.updated_at) as updated_at'))
-    //                ->leftJoin('domain_checks', 'domains.id', '=', 'domain_checks.domain_id')
-    //                ->groupBy('domains.id', 'domain_checks.status_code')
-    //                ->paginate(10);
-        return view('domain.index', compact('domains'));
-    }
-
-    public function paginate($items, $perPage = 15, $page = null, $options = [])
-    {
-        $page = $page ?: (PaginationPaginator::resolveCurrentPage() ?: 1);
-        $items = $items instanceof Collection ? $items : Collection::make($items);
-        return new LengthAwarePaginator($items->forPage($page, $perPage), $items->count(), $perPage, $page, $options);
+        $lastDomainChecks = $lastChecks->keyBy('domain_id');
+        return view('domain.index', compact('domains', 'lastDomainChecks'));
     }
 
     public function show($id)

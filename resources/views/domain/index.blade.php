@@ -14,8 +14,13 @@
     <tr>
         <td>{{$domain->id}}</td>
         <td><a href="{{ route('domains.show', ['id' => $domain->id]) }}">{{ $domain->name }}</a></td>
-        <td>{{$domain->status_code}}</td>
-        <td>{{$domain->last_check}}</td>
+        @if (isset($lastDomainChecks[$domain->id]))
+            <td>{{$lastDomainChecks[$domain->id]->status_code}}</td>
+            <td>{{$lastDomainChecks[$domain->id]->last_check}}</td>
+        @else
+            <td></td>
+            <td></td>
+        @endif
     </tr>
     @endforeach
 </table>
